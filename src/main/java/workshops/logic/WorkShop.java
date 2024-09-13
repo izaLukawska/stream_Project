@@ -33,15 +33,13 @@ class WorkShop {
      * Metoda zwraca liczbę holdingów w których jest przynajmniej jedna firma.
      */
     long getHoldingsWhereAreCompanies() {
-        return holdings.stream().filter(holding -> holding.companies().isEmpty()).count();
-
+        return holdings.stream().filter(holding -> !holding.companies().isEmpty()).count();
     }
 
     /**
      * Zwraca nazwy wszystkich holdingów pisane z małej litery w formie listy.
      */
     List<String> getHoldingNames() {
-
         return holdings.stream().map(holding -> holding.name().toLowerCase()).collect(toList());
     }
 
@@ -50,7 +48,6 @@ class WorkShop {
      * String ma postać: (Coca-Cola, Nestle, Pepsico)
      */
     String getHoldingNamesAsString() {
-
         return holdings.stream().map(Holding::name).sorted().collect(joining(",", "(", ")"));
     }
 
@@ -58,7 +55,6 @@ class WorkShop {
      * Zwraca liczbę firm we wszystkich holdingach.
      */
     long getCompaniesAmount() {
-
         return holdings.stream().mapToLong(holding -> holding.companies().size()).sum();
     }
 
@@ -66,7 +62,6 @@ class WorkShop {
      * Zwraca liczbę wszystkich pracowników we wszystkich firmach.
      */
     long getAllUserAmount() {
-
         return holdings.stream().flatMap(h-> h.companies().stream())
                 .mapToLong(c->c.users().size()).sum();
     }
@@ -76,7 +71,6 @@ class WorkShop {
      * później będziesz wykorzystywać.
      */
     List<String> getAllCompaniesNames() {
-
         return holdings.stream().flatMap(holding -> holding.companies().stream()).map(Company::name)
                 .collect(toList());
     }
@@ -141,11 +135,11 @@ class WorkShop {
                 .map(a->a.currency().name()).distinct().collect(Collectors.joining(" "));
     }
 
-    List<workshops.domain.Currency> getCurrencyList(){
+    List<Currency> getCurrencyList(){
         return holdings.stream().flatMap(holding -> holding.companies().stream())
                 .flatMap(company -> company.users().stream())
                 .flatMap(u->u.accounts().stream())
-                .map(Account::currency).toList();
+                .map(Account::currency).distinct().toList();
     }
 
     /**
@@ -173,7 +167,6 @@ class WorkShop {
                 .filter(isWoman)
                 .count();
     }
-
 
     /**
      * Przelicza kwotę na rachunku na złotówki za pomocą kursu określonego w enum Currency.
