@@ -181,7 +181,7 @@ class WorkShop {
     BigDecimal getTotalCashInPLN(final List<Account> accounts) {
         return accounts.stream()
                 .map(a->a.amount().multiply(BigDecimal.valueOf(a.currency().rate).setScale(2, RoundingMode.HALF_UP)))
-                .reduce((currentAmount, sum)-> sum.add(currentAmount)).orElse(BigDecimal.ZERO);
+                .reduce((currentAmount, sum)-> sum.add(currentAmount)).orElse(BigDecimal.ZERO).setScale(2, RoundingMode.HALF_UP);
     }
 
     /**

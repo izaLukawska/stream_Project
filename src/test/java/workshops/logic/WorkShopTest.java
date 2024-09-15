@@ -1,10 +1,18 @@
 package workshops.logic;
 
 import org.junit.jupiter.api.*;
+import workshops.domain.Account;
+import workshops.domain.AccountType;
 import workshops.domain.Currency;
+import workshops.domain.User;
+import workshops.mock.AccountMockGenerator;
+import workshops.mock.UserMockGenerator;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -188,7 +196,7 @@ class WorkShopTest {
     }
 
     @Test
-    void ShouldReturnWomanAmount(){
+    void ShouldReturn4Women(){
         //given
         long expectedAmount = 4;
 
@@ -197,5 +205,147 @@ class WorkShopTest {
 
         //then
         assertEquals(expectedAmount, actualAmount);
+    }
+
+    @Test
+    void shouldReturnAccountAmountInPln(){
+        //given
+        AccountMockGenerator accountMockGenerator = new AccountMockGenerator();
+        List<Account> accountsList = accountMockGenerator.generate();
+        var account = accountsList.get(2);
+        BigDecimal expectedResult = BigDecimal.valueOf(1000 * 4.23).setScale(2, RoundingMode.HALF_UP);
+
+        //when
+        BigDecimal result = workShop.getAccountAmountInPLN(account);
+
+        //then
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void shouldReturnTotalAmountInAllAccountsInPLN(){
+        //given
+        List<Account> accountsList = new AccountMockGenerator().generate();
+        BigDecimal expectedResult = BigDecimal.valueOf(27947933.5225).setScale(2, RoundingMode.HALF_UP);
+
+        //when
+        BigDecimal result = workShop.getTotalCashInPLN(accountsList);
+
+        //then
+        assertEquals(expectedResult, result);
+    }
+
+    @Test
+    void shouldReturnUsersFirstNameOlderThanAge(){
+        //given
+        Predicate<User> predicate = user -> (user.age() > 30);
+        int expectedSize = 10;
+
+        //when
+        int result = workShop.getUsersForPredicate(predicate).size();
+
+        //then
+        assertEquals(expectedSize, result);
+    }
+
+    @Test
+    void shouldReturnWomenFirstNameOlderThanAgeList(){
+        //given
+        int age = 30;
+        int expectedSize = 3;
+
+        //when
+        int result = workShop.getOldWoman(age).size();
+
+        //then
+        assertEquals(expectedSize, result);
+    }
+
+    @Disabled("Don't know how to validate that this method is being used")
+
+    @Test
+    void shouldExecuteMethodForEachCompany(){
+        //given
+
+        //when
+
+        //then
+    }
+
+    @Test
+    void shouldReturnRichestWoman(){
+        //given
+        var expectedResult =  new UserMockGenerator().generate().get(4);
+
+        //when
+        var result = workShop.getRichestWoman();
+
+        //then
+        assertAll(() ->{
+            assertTrue(result.isPresent());
+            assertEquals(expectedResult, result.get());
+        });
+    }
+
+    @Test
+    void shouldReturnFirstNCompanies(){
+        //given
+        int expectedSize = 3;
+        int amount = 3;
+
+        //when
+        int result = workShop.getFirstNCompany(amount).size();
+
+        //then
+        assertEquals(expectedSize,result);
+    }
+
+    @Disabled
+    @Test
+    void shouldReturnMostPopularAccountType(){
+        //given
+        var accountType = AccountType.RO1;
+
+        //when
+        var expectedAccountType = workShop.getMostPopularAccountType();
+
+        //then
+        assertEquals(accountType, expectedAccountType);
+    }
+
+    @Disabled
+    @Test
+    void shouldThrowIllegalStateExceptionIfNoAccountTypeFound(){
+
+    }
+
+
+    //What if there are many users??
+    @Test
+    void shouldReturnUserForPredicate(){
+        //given
+        var expectedUser = new UserMockGenerator().generate().get(0);
+        Predicate<User> predicate = user -> (user.age() == 17);
+
+        //when
+        var result = workShop.getUser(predicate);
+
+        //then
+        assertEquals(expectedUser, result);
+    }
+
+    @Disabled
+    @Test
+    void shouldReturnFirmMapWithUsersPerCompany(){
+    }
+
+    @Disabled
+    @Test
+    void shouldReturnFirmMapWithUsersFirstNameAndLastNamePerCompany(){
+    }
+
+    @Disabled
+    @Test
+    void shouldReturnFirmMapWithUsersPerCompanyAsTObjectType(){
     }
 }
