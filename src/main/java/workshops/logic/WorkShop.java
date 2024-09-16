@@ -24,8 +24,7 @@ class WorkShop {
      */
     private final List<Holding> holdings;
 
-    WorkShop() {
-        final HoldingMockGenerator holdingMockGenerator = new HoldingMockGenerator();
+    WorkShop(HoldingMockGenerator holdingMockGenerator) {
         holdings = holdingMockGenerator.generate();
     }
 
@@ -48,7 +47,7 @@ class WorkShop {
      * String ma postać: (Coca-Cola, Nestle, Pepsico)
      */
     String getHoldingNamesAsString() {
-        return holdings.stream().map(Holding::name).sorted().collect(joining(",", "(", ")"));
+        return holdings.stream().map(Holding::name).sorted().collect(joining(", ", "(", ")"));
     }
 
     /**
