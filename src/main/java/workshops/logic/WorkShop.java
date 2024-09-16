@@ -131,14 +131,14 @@ class WorkShop {
     String getAllCurrencies() {
         return holdings.stream().flatMap(h->h.companies().stream()).flatMap(c->c.users().stream())
                 .flatMap(user -> user.accounts().stream())
-                .map(a->a.currency().name()).distinct().collect(Collectors.joining(" "));
+                .map(a->a.currency().name()).distinct().sorted().collect(Collectors.joining(" "));
     }
 
     List<Currency> getCurrencyList(){
         return holdings.stream().flatMap(holding -> holding.companies().stream())
                 .flatMap(company -> company.users().stream())
                 .flatMap(u->u.accounts().stream())
-                .map(Account::currency).distinct().toList();
+                .map(Account::currency).sorted(Comparator.comparing(Enum::name)).distinct().toList();
     }
 
     /**
