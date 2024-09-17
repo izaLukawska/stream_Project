@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23c65630-e534-4a59-9078-930194fb4526" name="Changes" comment="refactored code and wrote test for methods till HoldingsNamesInString">
+    <list default="true" id="23c65630-e534-4a59-9078-930194fb4526" name="Changes" comment="refactored code and wrote test till getTotalCashInPLN method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/workshops/logic/WorkShop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/workshops/logic/WorkShop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/workshops/logic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/workshops/logic/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/workshops/logic/WorkShopTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/workshops/logic/WorkShopTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +57,20 @@
       <recent name="workshops.logic" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.WorkShopTest">
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="workshops.logic.Main" />
+      <module name="stream_Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshops.logic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="WorkShopTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="stream_Project" />
       <extension name="coverage">
@@ -73,22 +86,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkShopTest.shouldReturnAccountAmountInPln" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="stream_Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="workshops.logic.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="workshops.logic" />
-      <option name="MAIN_CLASS_NAME" value="workshops.logic.WorkShopTest" />
-      <option name="METHOD_NAME" value="shouldReturnAccountAmountInPln" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="WorkShopTest.shouldReturnAllCurrencies" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="stream_Project" />
       <extension name="coverage">
@@ -100,22 +97,6 @@
       <option name="PACKAGE_NAME" value="workshops.logic" />
       <option name="MAIN_CLASS_NAME" value="workshops.logic.WorkShopTest" />
       <option name="METHOD_NAME" value="shouldReturnAllCurrencies" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WorkShopTest.shouldReturnListOfAllCompaniesName" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="stream_Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="workshops.logic.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="workshops.logic" />
-      <option name="MAIN_CLASS_NAME" value="workshops.logic.WorkShopTest" />
-      <option name="METHOD_NAME" value="shouldReturnListOfAllCompaniesName" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -137,13 +118,29 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="WorkShopTest.shouldReturnListOfHoldingsOnlyWithCompanies" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="stream_Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="workshops.logic.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="workshops.logic" />
+      <option name="MAIN_CLASS_NAME" value="workshops.logic.WorkShopTest" />
+      <option name="METHOD_NAME" value="shouldReturnListOfHoldingsOnlyWithCompanies" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.WorkShopTest" />
-        <item itemvalue="JUnit.WorkShopTest.shouldReturnAccountAmountInPln" />
-        <item itemvalue="JUnit.WorkShopTest.shouldReturnListOfAllCurrencies" />
+        <item itemvalue="Application.Main" />
         <item itemvalue="JUnit.WorkShopTest.shouldReturnAllCurrencies" />
-        <item itemvalue="JUnit.WorkShopTest.shouldReturnListOfAllCompaniesName" />
+        <item itemvalue="JUnit.WorkShopTest" />
+        <item itemvalue="JUnit.WorkShopTest.shouldReturnListOfHoldingsOnlyWithCompanies" />
+        <item itemvalue="JUnit.WorkShopTest.shouldReturnListOfAllCurrencies" />
       </list>
     </recent_temporary>
   </component>
@@ -188,7 +185,15 @@
       <option name="project" value="LOCAL" />
       <updated>1726503837700</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="refactored code and wrote test till getTotalCashInPLN method">
+      <option name="closed" value="true" />
+      <created>1726508636922</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1726508636922</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -196,19 +201,15 @@
     <MESSAGE value="tests for methods to womanAmount method" />
     <MESSAGE value="tests for methods till getUser method" />
     <MESSAGE value="refactored code and wrote test for methods till HoldingsNamesInString" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored code and wrote test for methods till HoldingsNamesInString" />
+    <MESSAGE value="refactored code and wrote test till getTotalCashInPLN method" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactored code and wrote test till getTotalCashInPLN method" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/test/java/workshops/logic/WorkShopTest.java</url>
-          <line>54</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/workshops/logic/WorkShopTest.java</url>
-          <line>90</line>
+          <line>89</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
@@ -233,7 +234,7 @@
     <SUITE FILE_PATH="coverage/stream_Project$WorkShopTest_shouldReturnCountOfOnlyHoldingsThatIncludeCompanies.ic" NAME="WorkShopTest.shouldReturnCountOfOnlyHoldingsThatIncludeCompanies Coverage Results" MODIFIED="1726229476012" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>workshops.logic.*</FILTER>
     </SUITE>
-    <SUITE FILE_PATH="coverage/stream_Project$WorkShopTest.ic" NAME="WorkShopTest Coverage Results" MODIFIED="1726507991435" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+    <SUITE FILE_PATH="coverage/stream_Project$WorkShopTest.ic" NAME="WorkShopTest Coverage Results" MODIFIED="1726575967373" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
       <FILTER>workshops.logic.*</FILTER>
     </SUITE>
     <SUITE FILE_PATH="coverage/stream_Project$Main.ic" NAME="Main Coverage Results" MODIFIED="1726223178972" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">

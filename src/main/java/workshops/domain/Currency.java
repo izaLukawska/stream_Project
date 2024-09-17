@@ -11,5 +11,4 @@ public enum Currency {
     Currency(final float rate) {
         this.rate = rate;
     }
-
 }
