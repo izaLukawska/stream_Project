@@ -4,9 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="23c65630-e534-4a59-9078-930194fb4526" name="Changes" comment="refactored code and wrote test till getTotalCashInPLN method">
+    <list default="true" id="23c65630-e534-4a59-9078-930194fb4526" name="Changes" comment="test till getTotalCashInPLN method">
+      <change afterPath="$PROJECT_DIR$/src/test/java/workshops/logic/WorkShopTestUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/workshops/logic/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/workshops/logic/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/workshops/logic/WorkShop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/workshops/logic/WorkShop.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/workshops/logic/WorkShopTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/workshops/logic/WorkShopTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,6 +23,9 @@
       </list>
     </option>
   </component>
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -28,6 +33,9 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 3
@@ -38,14 +46,14 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;workShopTests&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;project.propVCSSupport.DirectoryMappings&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "workShopTests",
+    "settings.editor.selected.configurable": "actions.on.save"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/java" />
@@ -57,7 +65,7 @@
       <recent name="workshops.logic" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager" selected="JUnit.WorkShopTest.shouldReturnListOfWomanOlderThanAge">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="workshops.logic.Main" />
       <module name="stream_Project" />
@@ -71,7 +79,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkShopTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkShopTest.shouldReturnAllCompaniesNamesAsStringUsingStringBuilder" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="stream_Project" />
       <extension name="coverage">
         <pattern>
@@ -81,7 +89,8 @@
       </extension>
       <option name="PACKAGE_NAME" value="workshops.logic" />
       <option name="MAIN_CLASS_NAME" value="workshops.logic.WorkShopTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="METHOD_NAME" value="shouldReturnAllCompaniesNamesAsStringUsingStringBuilder" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -118,7 +127,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WorkShopTest.shouldReturnListOfHoldingsOnlyWithCompanies" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WorkShopTest.shouldReturnListOfWomanOlderThanAge" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="stream_Project" />
       <extension name="coverage">
         <pattern>
@@ -128,7 +137,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="workshops.logic" />
       <option name="MAIN_CLASS_NAME" value="workshops.logic.WorkShopTest" />
-      <option name="METHOD_NAME" value="shouldReturnListOfHoldingsOnlyWithCompanies" />
+      <option name="METHOD_NAME" value="shouldReturnListOfWomanOlderThanAge" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -136,11 +145,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.WorkShopTest.shouldReturnAllCurrencies" />
-        <item itemvalue="JUnit.WorkShopTest" />
-        <item itemvalue="JUnit.WorkShopTest.shouldReturnListOfHoldingsOnlyWithCompanies" />
+        <item itemvalue="JUnit.WorkShopTest.shouldReturnListOfWomanOlderThanAge" />
         <item itemvalue="JUnit.WorkShopTest.shouldReturnListOfAllCurrencies" />
+        <item itemvalue="JUnit.WorkShopTest.shouldReturnAllCurrencies" />
+        <item itemvalue="JUnit.WorkShopTest.shouldReturnAllCompaniesNamesAsStringUsingStringBuilder" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -193,7 +202,15 @@
       <option name="project" value="LOCAL" />
       <updated>1726508636922</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="test till getTotalCashInPLN method">
+      <option name="closed" value="true" />
+      <created>1726577577328</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1726577577328</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -202,18 +219,8 @@
     <MESSAGE value="tests for methods till getUser method" />
     <MESSAGE value="refactored code and wrote test for methods till HoldingsNamesInString" />
     <MESSAGE value="refactored code and wrote test till getTotalCashInPLN method" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactored code and wrote test till getTotalCashInPLN method" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/test/java/workshops/logic/WorkShopTest.java</url>
-          <line>89</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="test till getTotalCashInPLN method" />
+    <option name="LAST_COMMIT_MESSAGE" value="test till getTotalCashInPLN method" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/stream_Project$WorkShopTest_shouldReturnAllCompaniesAmount.ic" NAME="WorkShopTest.shouldReturnAllCompaniesAmount Coverage Results" MODIFIED="1726229317615" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
