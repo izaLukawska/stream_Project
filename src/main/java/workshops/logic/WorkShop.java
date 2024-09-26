@@ -1,5 +1,6 @@
 package workshops.logic;
 
+import lombok.EqualsAndHashCode;
 import workshops.domain.Currency;
 import workshops.domain.*;
 import workshops.mock.HoldingMockGenerator;
@@ -18,6 +19,7 @@ import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.*;
 
+@EqualsAndHashCode
 class WorkShop {
 	/**
 	 * Lista holdingów wczytana z mocka.
@@ -61,8 +63,7 @@ class WorkShop {
 	 * Zwraca liczbę wszystkich pracowników we wszystkich firmach.
 	 */
 	long getAllUserAmount() {
-		return holdings.stream().flatMap(h -> h.companies().stream())
-				.mapToLong(c -> c.users().size()).sum();
+		return holdings.stream().flatMap(h -> h.companies().stream()).mapToLong(c -> c.users().size()).sum();
 	}
 
 	/**
@@ -70,8 +71,7 @@ class WorkShop {
 	 * później będziesz wykorzystywać.
 	 */
 	List<String> getAllCompaniesNames() {
-		return holdings.stream().flatMap(holding -> holding.companies().stream()).map(Company::name)
-				.collect(toList());
+		return holdings.stream().flatMap(holding -> holding.companies().stream()).map(Company::name).collect(toList());
 	}
 
 	/**
@@ -79,9 +79,7 @@ class WorkShop {
 	 * po zakończeniu działania strumienia.
 	 */
 	LinkedList<String> getAllCompaniesNamesAsLinkedList() {
-		return holdings.stream().flatMap(holding -> holding.companies().stream())
-				.map(Company::name)
-				.collect(Collectors.toCollection(LinkedList::new));
+		return holdings.stream().flatMap(holding -> holding.companies().stream()).map(Company::name).collect(Collectors.toCollection(LinkedList::new));
 	}
 
 	/**
@@ -98,30 +96,23 @@ class WorkShop {
 	 * UWAGA: Zadanie z gwiazdką. Nie używamy zmiennych.
 	 */
 	String getAllCompaniesNamesAsStringUsingStringBuilder(StringBuilder customBuilder) {
-		return holdings.stream()
-				.flatMap(h -> h.companies().stream())
-				.map(Company::name)
-				.reduce(customBuilder, ((stringBuilder, companyName) -> {
-					if (!stringBuilder.isEmpty()) {
-						stringBuilder.append("+");
-					}
-					stringBuilder.append(companyName);
-					return stringBuilder;
-				}), (sb1, sb2) -> {
-					sb1.append(sb2);
-					return sb1;
-				}).toString();
+		return holdings.stream().flatMap(h -> h.companies().stream()).map(Company::name).reduce(customBuilder, ((stringBuilder, companyName) -> {
+			if (!stringBuilder.isEmpty()) {
+				stringBuilder.append("+");
+			}
+			stringBuilder.append(companyName);
+			return stringBuilder;
+		}), (sb1, sb2) -> {
+			sb1.append(sb2);
+			return sb1;
+		}).toString();
 	}
 
 	/**
 	 * Zwraca liczbę wszystkich rachunków, użytkowników we wszystkich firmach.
 	 */
 	long getAllUserAccountsAmount() {
-		return holdings.stream()
-				.flatMap(holding -> holding.companies().stream())
-				.flatMap(c -> c.users().stream())
-				.mapToLong(u -> u.accounts().size())
-				.sum();
+		return holdings.stream().flatMap(holding -> holding.companies().stream()).flatMap(c -> c.users().stream()).mapToLong(u -> u.accounts().size()).sum();
 	}
 
 	/**
@@ -129,16 +120,11 @@ class WorkShop {
 	 * występują bez powtórzeń i są posortowane.
 	 */
 	String getAllCurrencies() {
-		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(c -> c.users().stream())
-				.flatMap(user -> user.accounts().stream())
-				.map(a -> a.currency().name()).distinct().sorted().collect(Collectors.joining(" "));
+		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(c -> c.users().stream()).flatMap(user -> user.accounts().stream()).map(a -> a.currency().name()).distinct().sorted().collect(Collectors.joining(" "));
 	}
 
 	List<Currency> getCurrencyList() {
-		return holdings.stream().flatMap(holding -> holding.companies().stream())
-				.flatMap(company -> company.users().stream())
-				.flatMap(u -> u.accounts().stream())
-				.map(Account::currency).sorted(Comparator.comparing(Enum::name)).distinct().toList();
+		return holdings.stream().flatMap(holding -> holding.companies().stream()).flatMap(company -> company.users().stream()).flatMap(u -> u.accounts().stream()).map(Account::currency).sorted(Comparator.comparing(Enum::name)).distinct().toList();
 	}
 
 	/**
@@ -148,10 +134,7 @@ class WorkShop {
 	 * @see #getAllCurrencies()
 	 */
 	String getAllCurrenciesUsingGenerate() {
-		return Stream.generate(() -> getCurrencyList().iterator().next())
-				.limit(getCurrencyList().size())
-				.map(Enum::name)
-				.collect(Collectors.joining(" "));
+		return Stream.generate(() -> getCurrencyList().iterator().next()).limit(getCurrencyList().size()).map(Enum::name).collect(Collectors.joining(" "));
 	}
 
 	/**
@@ -162,10 +145,7 @@ class WorkShop {
 	private static Predicate<User> isWoman = u -> u.sex().equals(Sex.WOMAN);
 
 	long getWomanAmount() {
-		return holdings.stream().flatMap(h -> h.companies().stream())
-				.flatMap(c -> c.users().stream())
-				.filter(isWoman)
-				.count();
+		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(c -> c.users().stream()).filter(isWoman).count();
 	}
 
 	/**
@@ -179,9 +159,7 @@ class WorkShop {
 	 * Przelicza kwotę na podanych rachunkach na złotówki za pomocą kursu określonego w enum Currency i sumuje ją.
 	 */
 	BigDecimal getTotalCashInPLN(final List<Account> accounts) {
-		return accounts.stream()
-				.map(a -> a.amount().multiply(BigDecimal.valueOf(a.currency().rate).setScale(2, RoundingMode.HALF_UP)))
-				.reduce((currentAmount, sum) -> sum.add(currentAmount)).orElse(BigDecimal.ZERO).setScale(2, RoundingMode.HALF_UP);
+		return accounts.stream().map(a -> a.amount().multiply(BigDecimal.valueOf(a.currency().rate).setScale(2, RoundingMode.HALF_UP))).reduce((currentAmount, sum) -> sum.add(currentAmount)).orElse(BigDecimal.ZERO).setScale(2, RoundingMode.HALF_UP);
 	}
 
 	/**
@@ -189,11 +167,7 @@ class WorkShop {
 	 */
 
 	Set<String> getUsersForPredicate(final Predicate<User> userPredicate) {
-		return holdings.stream().flatMap(h -> h.companies().stream())
-				.flatMap(c -> c.users().stream())
-				.filter(userPredicate)
-				.map(User::firstName)
-				.collect(Collectors.toSet());
+		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(c -> c.users().stream()).filter(userPredicate).map(User::firstName).collect(Collectors.toSet());
 	}
 
 	/**
@@ -201,12 +175,7 @@ class WorkShop {
 	 * i zwraca ich imiona w formie listy.
 	 */
 	List<String> getOldWoman(final int age) {
-		return holdings.stream().flatMap(h -> h.companies().stream())
-				.flatMap(c -> c.users().stream())
-				.filter(user -> user.sex().equals(Sex.WOMAN) && user.age() >= age)
-				.map(User::firstName)
-				.peek(System.out::println)
-				.toList();
+		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(c -> c.users().stream()).filter(user -> user.sex().equals(Sex.WOMAN) && user.age() >= age).map(User::firstName).peek(System.out::println).toList();
 	}
 
 	/**
@@ -221,13 +190,7 @@ class WorkShop {
 	 */
 	//pomoc w rozwiązaniu problemu w zadaniu: https://stackoverflow.com/a/55052733/9360524
 	Optional<User> getRichestWoman() {
-		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(c -> c.users().stream())
-				.filter(user -> user.sex().equals(Sex.WOMAN))
-				.collect(Collectors.toMap(Function.identity(),
-						u -> u.accounts().stream()
-								.map(a -> a.amount().multiply(BigDecimal.valueOf(a.currency().rate).setScale(2, RoundingMode.HALF_UP)))
-								.reduce((currentAmount, sum) -> sum.add(currentAmount)).orElse(BigDecimal.ZERO)))
-				.entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey);
+		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(c -> c.users().stream()).filter(user -> user.sex().equals(Sex.WOMAN)).collect(Collectors.toMap(Function.identity(), u -> u.accounts().stream().map(a -> a.amount().multiply(BigDecimal.valueOf(a.currency().rate).setScale(2, RoundingMode.HALF_UP))).reduce((currentAmount, sum) -> sum.add(currentAmount)).orElse(BigDecimal.ZERO))).entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey);
 		// entrySet - aby uzyskać dostęp do value i key
 	}
 
@@ -235,9 +198,7 @@ class WorkShop {
 	 * Zwraca nazwy pierwszych N firm. Kolejność nie ma znaczenia.
 	 */
 	Set<String> getFirstNCompany(final int n) {
-		return holdings.stream().flatMap(h -> h.companies().stream())
-				.map(Company::name)
-				.limit(n).collect(Collectors.toSet());
+		return holdings.stream().flatMap(h -> h.companies().stream()).map(Company::name).limit(n).collect(Collectors.toSet());
 	}
 
 	/**
@@ -246,15 +207,7 @@ class WorkShop {
 	 * Pierwsza instrukcja metody to return.
 	 */
 	AccountType getMostPopularAccountType() {
-		return holdings.stream().flatMap(h -> h.companies().stream())
-				.flatMap(company -> company.users().stream())
-				.flatMap(user -> user.accounts().stream())
-				.map(Account::type)
-				.collect(groupingBy(Function.identity(), counting()))
-				.entrySet().stream()
-				.max(Map.Entry.comparingByValue())
-				.map(Map.Entry::getKey)
-				.orElseThrow(IllegalStateException::new);
+		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(company -> company.users().stream()).flatMap(user -> user.accounts().stream()).map(Account::type).collect(groupingBy(Function.identity(), counting())).entrySet().stream().max(Map.Entry.comparingByValue()).map(Map.Entry::getKey).orElseThrow(IllegalArgumentException::new);
 	}
 
 	/**
@@ -262,18 +215,14 @@ class WorkShop {
 	 * wyjątek IllegalArgumentException.
 	 */
 	User getUser(final Predicate<User> predicate) {
-		return holdings.stream().flatMap(h -> h.companies().stream())
-				.flatMap(c -> c.users().stream())
-				.filter(predicate)
-				.findFirst().orElseThrow(IllegalArgumentException::new);
+		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(c -> c.users().stream()).filter(predicate).findFirst().orElseThrow(IllegalArgumentException::new);
 	}
 
 	/**
 	 * Zwraca mapę firm, gdzie kluczem jest jej nazwa a wartością lista pracowników.
 	 */
 	Map<String, List<User>> getUserPerCompany() {
-		return holdings.stream().flatMap(holding -> holding.companies().stream())
-				.collect(toMap(Company::name, Company::users));
+		return holdings.stream().flatMap(holding -> holding.companies().stream()).collect(toMap(Company::name, Company::users));
 	}
 
 
@@ -282,9 +231,7 @@ class WorkShop {
 	 * składający się z imienia i nazwiska. Podpowiedź:  Możesz skorzystać z metody entrySet.
 	 */
 	Map<String, List<String>> getUserPerCompanyAsString() {
-		return holdings.stream().flatMap(holding -> holding.companies().stream())
-				.collect(toMap(Company::name,
-						c -> c.users().stream().map(user -> user.firstName() + " " + user.lastName()).toList()));
+		return holdings.stream().flatMap(holding -> holding.companies().stream()).collect(toMap(Company::name, c -> c.users().stream().map(user -> user.firstName() + " " + user.lastName()).toList()));
 	}
 
 	/**
@@ -293,8 +240,7 @@ class WorkShop {
 	 */
 	//pomoc w rozwiązaniu problemu w zadaniu: https://stackoverflow.com/a/54969615/9360524
 	<T> Map<String, List<T>> getUserPerCompany(final Function<User, T> converter) {
-		return holdings.stream().flatMap(holding -> holding.companies().stream())
-				.collect(toMap(Company::name, c -> c.users().stream().map(converter).collect(toList())));
+		return holdings.stream().flatMap(holding -> holding.companies().stream()).collect(toMap(Company::name, c -> c.users().stream().map(converter).collect(toList())));
 	}
 
 	/**
@@ -302,41 +248,28 @@ class WorkShop {
 	 * Osoby "innej" płci mają zostać zignorowane. Wartością jest natomiast zbiór nazwisk tych osób.
 	 */
 	Map<Boolean, Set<String>> getUserBySex() {
-		return holdings.stream().flatMap(holding -> holding.companies().stream())
-				.flatMap(company -> company.users().stream())
-				.filter(u -> u.sex().equals(Sex.WOMAN) || u.sex().equals(Sex.MAN))
-				.collect(groupingBy(u -> u.sex().equals(Sex.MAN), mapping(User::lastName, toSet())));
+		return holdings.stream().flatMap(holding -> holding.companies().stream()).flatMap(company -> company.users().stream()).filter(u -> u.sex().equals(Sex.WOMAN) || u.sex().equals(Sex.MAN)).collect(groupingBy(u -> u.sex().equals(Sex.MAN), mapping(User::lastName, toSet())));
 	}
 
 	/**
 	 * Zwraca mapę rachunków, gdzie kluczem jest numer rachunku, a wartością ten rachunek.
 	 */
 	Map<String, Account> createAccountsMap() {
-		return holdings.stream().flatMap(h -> h.companies().stream())
-				.flatMap(company -> company.users().stream())
-				.flatMap(user -> user.accounts().stream())
-				.collect(toMap(Account::number, Function.identity()));
+		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(company -> company.users().stream()).flatMap(user -> user.accounts().stream()).collect(toMap(Account::number, Function.identity()));
 	}
 
 	/**
 	 * Zwraca listę wszystkich imion w postaci Stringa, gdzie imiona oddzielone są spacją i nie zawierają powtórzeń.
 	 */
 	String getUserNames() {
-		return holdings.stream().flatMap(h -> h.companies().stream())
-				.flatMap(c -> c.users().stream())
-				.distinct()
-				.map(User::firstName)
-				.collect(joining(" "));
+		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(c -> c.users().stream()).distinct().map(User::firstName).collect(joining(" "));
 	}
 
 	/**
 	 * Zwraca zbiór wszystkich użytkowników. Jeżeli jest ich więcej niż 10 to obcina ich ilość do 10.
 	 */
 	Set<User> getUsers() {
-		return holdings.stream().flatMap(h -> h.companies().stream())
-				.flatMap(c -> c.users().stream())
-				.limit(10)
-				.collect(toSet());
+		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(c -> c.users().stream()).limit(10).collect(toSet());
 	}
 
 	/**
@@ -346,27 +279,22 @@ class WorkShop {
 	 * Skorzystaj z strumieni i try-resources.
 	 */
 	void saveAccountsInFile(final String fileName) {
-		holdings.stream().flatMap(holding -> holding.companies().stream())
-				.flatMap(company -> company.users().stream())
-				.flatMap(user -> user.accounts().stream())
-				.forEach(account -> {
-					String input = String.format("%s | %s | %s", account.number(), account.amount().toString(), account.currency().toString());
-					try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
-						bufferedWriter.write(input);
-					} catch (IOException e) {
-						throw new RuntimeException(e);
-					}
-				});
+		holdings.stream().flatMap(holding -> holding.companies().stream()).flatMap(company -> company.users().stream()).flatMap(user -> user.accounts().stream()).forEach(account -> {
+			String input = String.format("%s | %s | %s", account.number(), account.amount().toString(), account.currency().toString());
+			try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(fileName))) {
+				bufferedWriter.write(input);
+			}
+			catch (IOException e) {
+				throw new RuntimeException(e);
+			}
+		});
 	}
 
 	/**
 	 * Zwraca użytkownika, który spełnia podany warunek.
 	 */
 	Optional<User> findUser(final Predicate<User> userPredicate) {
-		return holdings.stream().flatMap(holding -> holding.companies().stream())
-				.flatMap(company -> company.users().stream())
-				.filter(userPredicate)
-				.findFirst();
+		return holdings.stream().flatMap(holding -> holding.companies().stream()).flatMap(company -> company.users().stream()).filter(userPredicate).findFirst();
 	}
 
 	/**
@@ -376,9 +304,7 @@ class WorkShop {
 	 * Uwaga: W prawdziwym kodzie nie przekazuj Optionali jako parametrów.
 	 */
 	String getAdultantStatus(final Optional<User> userOptional) {
-		return userOptional.map(u -> String.format("%s %s is %d years old.",
-						u.firstName(), u.lastName(), u.age()))
-				.orElse("No user found.");
+		return userOptional.map(u -> String.format("%s %s is %d years old.", u.firstName(), u.lastName(), u.age())).orElse("No user found.");
 	}
 
 	/**
@@ -386,10 +312,7 @@ class WorkShop {
 	 * Zosia Psikuta, Zenon Kucowski, Zenek Jawowy ... Alfred Pasibrzuch, Adam Wojcik
 	 */
 	void showAllUser() {
-		holdings.stream().flatMap(holding -> holding.companies().stream())
-				.flatMap(company -> company.users().stream())
-				.sorted((u1, u2) -> u2.firstName().compareTo(u1.firstName()))
-				.forEach(u -> System.out.println(u.firstName() + " " + u.lastName()));
+		holdings.stream().flatMap(holding -> holding.companies().stream()).flatMap(company -> company.users().stream()).sorted((u1, u2) -> u2.firstName().compareTo(u1.firstName())).forEach(u -> System.out.println(u.firstName() + " " + u.lastName()));
 	}
 
 	/**
@@ -397,21 +320,14 @@ class WorkShop {
 	 * przeliczona na złotówki.
 	 */
 	Map<AccountType, BigDecimal> getMoneyOnAccounts() {
-		return holdings.stream().flatMap(holding -> holding.companies().stream())
-				.flatMap(company -> company.users().stream())
-				.flatMap(user -> user.accounts().stream())
-				.collect(groupingBy(Account::type,
-						Collectors.mapping(account -> account.amount().multiply(BigDecimal.valueOf(account.currency().rate).setScale(2, RoundingMode.HALF_UP)),
-								reducing(new BigDecimal(0), (currentAmount, sum) -> sum.add(currentAmount)))));
+		return holdings.stream().flatMap(holding -> holding.companies().stream()).flatMap(company -> company.users().stream()).flatMap(user -> user.accounts().stream()).collect(groupingBy(Account::type, Collectors.mapping(account -> account.amount().multiply(BigDecimal.valueOf(account.currency().rate).setScale(2, RoundingMode.HALF_UP)), reducing(new BigDecimal(0), (currentAmount, sum) -> sum.add(currentAmount)))));
 	}
 
 	/**
 	 * Zwraca sumę kwadratów wieków wszystkich użytkowników.
 	 */
 	int getAgeSquaresSum() {
-		return holdings.stream().flatMap(holding -> holding.companies().stream())
-				.flatMap(company -> company.users().stream())
-				.mapToInt(u -> (int) Math.sqrt(u.age())).sum();
+		return holdings.stream().flatMap(holding -> holding.companies().stream()).flatMap(company -> company.users().stream()).mapToInt(u -> (int) Math.pow(u.age(), 2)).sum();
 	}
 
 	/**
@@ -421,23 +337,18 @@ class WorkShop {
 	 */
 	List<User> getRandomUsers(final int n) {
 		return Stream.generate(() -> {
-			if (holdings.stream().flatMap(holding -> holding.companies().stream())
-					.mapToLong(company -> company.users().size()).sum() < n) {
+			if (holdings.stream().flatMap(holding -> holding.companies().stream()).mapToLong(company -> company.users().size()).sum() < n) {
 				throw new RuntimeException();
 			}
-			return holdings.stream().flatMap(holding -> holding.companies().stream())
-					.flatMap(company -> company.users().stream()).iterator().next();
-		}).limit(n).collect(toList());
+			return holdings.stream().flatMap(holding -> holding.companies().stream()).flatMap(company -> company.users().stream()).iterator().next();
+		}).distinct().limit(n).collect(toList());
 	}
 
 	/**
 	 * Zwraca zbiór walut w jakich są rachunki.
 	 */
-	private Set<Currency> getCurenciesSet() {
-		return holdings.stream().flatMap(h -> h.companies().stream())
-				.flatMap(c -> c.users().stream())
-				.flatMap(u -> u.accounts().stream())
-				.map(Account::currency).collect(toSet());
+	public Set<Currency> getCurenciesSet() {
+		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(c -> c.users().stream()).flatMap(u -> u.accounts().stream()).map(Account::currency).collect(toSet());
 	}
 
 	/**
@@ -446,37 +357,22 @@ class WorkShop {
 	 * jest obiekt User a wartością suma pieniędzy na rachunku danego typu przeliczona na złotkówki.
 	 */
 	Map<Stream<AccountType>, Map<User, BigDecimal>> getMapWithAccountTypeKeyAndSumMoneyForManInPLN() {
-		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(c -> c.users().stream())
-				.filter(user -> user.sex().equals(Sex.MAN))
-				.collect(groupingBy(user -> user.accounts().stream().map(Account::type), Collectors.toMap(user -> user,
-						u -> u.accounts().stream()
-								.map(a -> a.amount().multiply(BigDecimal.valueOf(a.currency().rate).setScale(2, RoundingMode.HALF_UP)))
-								.reduce((currentAmount, sum) -> sum.add(currentAmount)).orElse(BigDecimal.ZERO))));
+		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(c -> c.users().stream()).filter(user -> user.sex().equals(Sex.MAN)).collect(groupingBy(user -> user.accounts().stream().map(Account::type), Collectors.toMap(user -> user, u -> u.accounts().stream().map(a -> a.amount().multiply(BigDecimal.valueOf(a.currency().rate).setScale(2, RoundingMode.HALF_UP))).reduce((currentAmount, sum) -> sum.add(currentAmount)).orElse(BigDecimal.ZERO))));
 	}
 
-	private Map<User, BigDecimal> manWithSumMoneyOnAccounts(final Company company) {
-		return company.users().stream().filter(u -> u.sex().equals(Sex.MAN))
-				.collect(Collectors.toMap(Function.identity(),
-						u -> u.accounts().stream()
-								.map(a -> a.amount().multiply(BigDecimal.valueOf(a.currency().rate).setScale(2, RoundingMode.HALF_UP)))
-								.reduce((currentAmount, sum) -> sum.add(currentAmount)).orElse(BigDecimal.ZERO)));
+	public Map<User, BigDecimal> manWithSumMoneyOnAccounts(final Company company) {
+		return company.users().stream().filter(u -> u.sex().equals(Sex.MAN)).collect(Collectors.toMap(Function.identity(), u -> u.accounts().stream().map(a -> a.amount().multiply(BigDecimal.valueOf(a.currency().rate).setScale(2, RoundingMode.HALF_UP))).reduce((currentAmount, sum) -> sum.add(currentAmount)).orElse(BigDecimal.ZERO)));
 	}
 
-	private BigDecimal getSumUserAmountInPLN(final User user) {
-		return user.accounts().stream().map(a -> a.amount().multiply(BigDecimal.valueOf(a.currency().rate).setScale(2, RoundingMode.HALF_UP)))
-				.reduce((currentAmount, sum) -> sum.add(currentAmount)).orElse(BigDecimal.ZERO);
+	public BigDecimal getSumUserAmountInPLN(final User user) {
+		return user.accounts().stream().map(a -> a.amount().multiply(BigDecimal.valueOf(a.currency().rate).setScale(2, RoundingMode.HALF_UP))).reduce((currentAmount, sum) -> sum.add(currentAmount)).orElse(BigDecimal.ZERO);
 	}
 
 	/**
 	 * 39. Policz ile pieniędzy w złotówkach jest na kontach osób które nie są ani kobietą ani mężczyzną.
 	 */
 	BigDecimal getSumMoneyOnAccountsForPeopleOtherInPLN() {
-		return holdings.stream().flatMap(h -> h.companies().stream())
-				.flatMap(c -> c.users().stream())
-				.filter(u -> u.sex().equals(Sex.OTHER))
-				.flatMap(a -> a.accounts().stream())
-				.map(a -> a.amount().multiply(BigDecimal.valueOf(a.currency().rate).setScale(2, RoundingMode.HALF_UP)))
-				.reduce((currentAmount, sum) -> sum.add(currentAmount)).orElse(BigDecimal.ZERO);
+		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(c -> c.users().stream()).filter(u -> u.sex().equals(Sex.OTHER)).flatMap(a -> a.accounts().stream()).map(a -> a.amount().multiply(BigDecimal.valueOf(a.currency().rate).setScale(2, RoundingMode.HALF_UP))).reduce((currentAmount, sum) -> sum.add(currentAmount)).orElse(BigDecimal.ZERO);
 	}
 
 	/**
@@ -486,8 +382,6 @@ class WorkShop {
 	 * która ma więcej lub równo 18 lat
 	 */
 	Map<Boolean, Long> divideIntoAdultsAndNonAdults() {
-		return holdings.stream().flatMap(h -> h.companies().stream())
-				.flatMap(company -> company.users().stream())
-				.collect(Collectors.groupingBy((user -> user.age() >= 18), counting()));
+		return holdings.stream().flatMap(h -> h.companies().stream()).flatMap(company -> company.users().stream()).collect(Collectors.groupingBy((user -> user.age() >= 18), counting()));
 	}
 }
