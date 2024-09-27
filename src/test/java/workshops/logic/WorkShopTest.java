@@ -297,6 +297,7 @@ class WorkShopTest {
 		String firstName = "TestFirstName1";
 		Predicate<User> condition = user -> user.firstName().equals(firstName);
 		User expectedUser = WorkShopTestUtil.user1;
+
 		//when
 		User actualUser = workShop.getUser(condition);
 
@@ -438,7 +439,8 @@ class WorkShopTest {
 	@Test
 	void shouldReturnMoneyOnAccounts() {
 		//given
-		Map<AccountType, BigDecimal> expectedResult = Map.of(AccountType.LO2, BigDecimal.valueOf(10 * Currency.USD.rate).setScale(2, RoundingMode.HALF_UP),
+		Map<AccountType, BigDecimal> expectedResult = Map.of(
+				AccountType.LO2, BigDecimal.valueOf(10 * Currency.USD.rate).setScale(2, RoundingMode.HALF_UP),
 				AccountType.RO2, BigDecimal.valueOf(10 * Currency.CHF.rate).setScale(2, RoundingMode.HALF_UP),
 				AccountType.RO1, BigDecimal.valueOf(2 * Currency.EUR.rate).setScale(2, RoundingMode.HALF_UP),
 				AccountType.LO1, BigDecimal.ONE.setScale(2, RoundingMode.HALF_UP));
@@ -462,9 +464,8 @@ class WorkShopTest {
 		assertEquals(expectedResult, actualResult);
 	}
 
-	@Disabled("can't load this test")
 	@Test
-	void shouldReturnRandomUsersList() {
+	void shouldReturnSpecificNumberOfRandomUsers() {
 		//given
 		int usersCount = 2;
 		List<User> expectedResult = List.of(mock(User.class), mock(User.class));
@@ -473,16 +474,16 @@ class WorkShopTest {
 		List<User> actualResult = workShop.getRandomUsers(usersCount);
 
 		//then
-		assertEquals(expectedResult.size(), actualResult.size());
+		assertEquals(expectedResult, actualResult);
 	}
 
 	@Test
 	void shouldReturnRuntimeExceptionIfAmountOfUsersIsTooBig() {
 		//given
-		int number = 60;
+		int userCount = 60;
 
 		//then
-		assertThrows(RuntimeException.class, () -> workShop.getRandomUsers(number));
+		assertThrows(RuntimeException.class, () -> workShop.getRandomUsers(userCount));
 	}
 
 	@Test

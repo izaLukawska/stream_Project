@@ -335,12 +335,14 @@ class WorkShop {
 	 * powtarzać, wszystkie zmienną muszą być final. Jeżeli podano liczbę większą niż liczba użytkowników należy
 	 * wyrzucić wyjątek (bez zmiany sygnatury metody).
 	 */
+
 	List<User> getRandomUsers(final int n) {
 		return Stream.generate(() -> {
-			if (holdings.stream().flatMap(holding -> holding.companies().stream()).mapToLong(company -> company.users().size()).sum() < n) {
+			if (holdings.stream().flatMap(holding -> holding.companies().stream()).mapToInt(company -> company.users().size()).sum() < n) {
 				throw new RuntimeException();
 			}
-			return holdings.stream().flatMap(holding -> holding.companies().stream()).flatMap(company -> company.users().stream()).iterator().next();
+			return holdings.stream().flatMap(holding -> holding.companies().stream()).flatMap(company -> company.users().stream()).iterator()
+					.next();
 		}).distinct().limit(n).collect(toList());
 	}
 
